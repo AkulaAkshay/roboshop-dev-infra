@@ -20,13 +20,12 @@ resource "terraform_data" "mongodb" {
     type        = "ssh"
     user        = "ec2-user"
     password    = "DevOps321"     # Local path to your private key
-    host        = aws_instance.mongodb.public_ip  
+    host        = aws_instance.mongodb.private_ip  
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo dnf install nginx -y",
-      "sudo systemctl start nginx"
+      "echo Hello world"
    ]
   }
 }
