@@ -39,3 +39,22 @@ resource "aws_security_group_rule" "redis_bastion" {
     to_port           = 22
 }
 
+#rabbitmq accepting connection from bastion
+resource "aws_security_group_rule" "redis_bastion" {
+    type              = "ingress"
+    security_group_id = local.rabbitmq_sg_id
+    source_security_group_id = local.bastion_sg_id
+    from_port         = 22
+    protocol          = "tcp"
+    to_port           = 22
+}
+
+#mysql accepting connection from bastion
+resource "aws_security_group_rule" "redis_bastion" {
+    type              = "ingress"
+    security_group_id = local.mysql_sg_id
+    source_security_group_id = local.bastion_sg_id
+    from_port         = 22
+    protocol          = "tcp"
+    to_port           = 22
+}
