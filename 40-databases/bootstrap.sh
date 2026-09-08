@@ -3,6 +3,7 @@
 component=$1
 environment=$2
 dnf install ansible -y
+#ansible-pull is not respecting inventory.ini and ansiblle.cfg (not throwing any errors but it showing warnings, hence instead of pull we are using git clone )
 #ansible-pull -U https://github.com/daws-86s/ansible-roboshop-roles-tf.git -e component=$component main.yaml
 # git clone ansible-playbook
 # cd ansible-playbook
@@ -29,4 +30,4 @@ else
     cd $ANSIBLE_DIR
 fi
 
-ansible-playbook -e component=$component -e environment=$environment main.yaml
+ansible-playbook -e component=$component -e env=$environment main.yaml
