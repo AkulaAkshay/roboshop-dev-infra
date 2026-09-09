@@ -39,6 +39,6 @@ resource "aws_instance" "bastion" {
 
 # since now we are using iam role we dont need to run aws configure inside bastion host server manually and also we no need to install terraform manually 
 resource "aws_iam_instance_profile" "bastion" {
-  name = "mysql"
+  name = "bastion"
   role = "BastionTerraformAdmin"
 }
