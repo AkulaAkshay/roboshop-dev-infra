@@ -1,4 +1,4 @@
-resource "aws_instance" "mongodb" {
+resource "aws_instance" "mongodb" { # we can loop this but looping everything makes more difficulty for maintaince and it is like making the code even more difficult for a newcommer it dosen't uderstand
     ami = local.ami_id
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.mongodb_sg_id]
@@ -165,4 +165,44 @@ resource "terraform_data" "mysql" {
         "sudo sh /tmp/bootstrap.sh mysql dev"
     ]
   }
+}
+
+#route53 record for mongodb
+resource "aws_route53_record" "mongodb" {
+  zone_id = var.zone_id
+  name    = var.hosted_zone
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mongodb.private_ip]
+  allow_overwrite = true
+}
+
+#route53 record for redis
+resource "aws_route53_record" "redis" {
+  zone_id = var.zone_id
+  name    = var.hosted_zone
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.redis.private_ip]
+  allow_overwrite = true
+}
+
+#route53 record for rabbitmq
+resource "aws_route53_record" "rabbitmq" {
+  zone_id = var.zone_id
+  name    = var.hosted_zone
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.rabbitmq.private_ip]
+  allow_overwrite = true
+}
+
+#route53 record for mysql
+resource "aws_route53_record" "mysql" {
+  zone_id = var.zone_id
+  name    = var.hosted_zone
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mysql.private_ip]
+  allow_overwrite = true
 }
