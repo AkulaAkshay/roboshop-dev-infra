@@ -27,6 +27,6 @@ variable "zone_id" { #Hosted zone ID
     default = "Z02237942WL8S6DN4RI1T"
 }
 
-variable "hosted_zone" { #Hosted zone name
+variable "domain_name" { #Hosted zone name
     default = "akshaysunny.space"
 } # if necessary, since we provide the details of hosted zone, we can query the zone id .
