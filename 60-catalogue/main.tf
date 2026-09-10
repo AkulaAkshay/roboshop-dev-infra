@@ -1,3 +1,4 @@
+# Create EC2 instance
 resource "aws_instance" "catalogue" {
     ami = local.ami_id
     instance_type = "t3.micro"
@@ -7,11 +8,12 @@ resource "aws_instance" "catalogue" {
     tags = merge (
         local.common_tags,
         {
-            Name = "${local.common_name_suffix}-catalogue" # roboshop-dev-rabbitmq
+            Name = "${local.common_name_suffix}-catalogue" # roboshop-dev-mongodb
         }
     )
 }
 
+# Connect to instance using remote-exec provisioner through terraform_data
 resource "terraform_data" "catalogue" {
   triggers_replace = [
     aws_instance.catalogue.id
@@ -24,7 +26,7 @@ resource "terraform_data" "catalogue" {
     host     = aws_instance.catalogue.private_ip
   }
 
-  # terraform copies this file to mongodb server
+  # terraform copies this file to catalogue server
   provisioner "file" {
     source = "catalogue.sh"
     destination = "/tmp/catalogue.sh"
@@ -33,6 +35,7 @@ resource "terraform_data" "catalogue" {
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/catalogue.sh",
+        # "sudo sh /tmp/catalogue.sh"
         "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
     ]
   }
