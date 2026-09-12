@@ -112,7 +112,9 @@ resource "terraform_data" "rabbitmq" {
     source = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
-
+#The local-exec provisioner invokes a process on the machine where Terraform is running.
+#The remote-exec provisioner runs commands on the remote resource through a connection such as SSH or WinRM
+#local-exec runs from your laptop. remote-exec runs on the server, so it needs a network path—direct SSH, bastion, VPN, internal runner, or another connection method.
   provisioner "remote-exec" {
     inline = [
         "chmod +x /tmp/bootstrap.sh",
