@@ -42,9 +42,9 @@ resource "terraform_data" "catalogue" {
 }
 
 #stop the instance -> Control its power state explicitly
-resource "aws_ec2_instance_state" "my_server_state" {
+resource "aws_ec2_instance_state" "catalogue" {
   instance_id = aws_instance.catalogue.id
-  state       = "stopped" # Change to "running" to start it back up
+  state       = "stopped"
   depends_on = [terraform_data.catalogue]
 }
 
