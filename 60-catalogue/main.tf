@@ -40,3 +40,21 @@ resource "terraform_data" "catalogue" {
     ]
   }
 }
+
+#stop the instance -> Control its power state explicitly
+resource "aws_ec2_instance_state" "my_server_state" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped" # Change to "running" to start it back up
+  depends_on = [terraform_data.catalogue]
+}
+
+# extracting the AMI, after stopping the instance
+resource "aws_ami_from_instance" "example" {
+  name               = "${local.common_name_suffix}-catalogue-ami"
+  source_instance_id = "aws_instance.catalogue.id"
+  depends_on = [aws_ec2_instance_state.my_server_state]
+}
+
+
+
+
