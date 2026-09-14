@@ -36,7 +36,7 @@ resource "aws_lb_listener" "backend_alb" {
 #r53 record
 resource "aws_route53_record" "backend_alb" {
   zone_id = var.zone_id
-  name    = "*.backend-alb-${var.environment}.${var.domain_name}"
+  name    = "*.backend-alb-${var.environment}.${var.domain_name}" # *.backend-alb-dev-akshaysunny.space (* - catalogue, cart, user, payment, shipping)
   type    = "A"
 
   alias {
