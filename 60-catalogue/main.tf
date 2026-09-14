@@ -188,7 +188,7 @@ resource "aws_autoscaling_policy" "catalogue" {
 }
 
 # add rule to listener that if u get /api/catalogue then send it to catalogue.backend-alb-dev.akshaysunny.space
-resource "aws_lb_listener_rule" "host_based_weighted_routing" {
+resource "aws_lb_listener_rule" "catalogue" {
   listener_arn = local.backend_alb_listener_arn
   priority     = 10
 
