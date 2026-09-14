@@ -9,7 +9,7 @@ resource "aws_security_group_rule" "backend_alb_bastion" {
 }
 
 
-#Bastion accepting traffic from laptop
+#Bastion accepting traffic from laptop i.e., public(internet)
 resource "aws_security_group_rule" "bastion_laptop" {
     type              = "ingress"
     security_group_id = local.bastion_sg_id
@@ -89,3 +89,12 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
     to_port           = 80
 }
 
+#frontend alb accepting traffic from public(internet)
+resource "aws_security_group_rule" "frontend_alb_public" {
+    type              = "ingress"
+    security_group_id = local.frontend_alb_sg_id
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port         = 443
+    protocol          = "tcp"
+    to_port           = 443
+}

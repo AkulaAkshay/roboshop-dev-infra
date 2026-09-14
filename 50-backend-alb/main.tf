@@ -1,3 +1,4 @@
+# creating backend alb
 resource "aws_lb" "backend_alb" {
   name               = "${local.common_name_suffix}-backend-alb" # roboshop-dev-backend-alb
   internal           = true
