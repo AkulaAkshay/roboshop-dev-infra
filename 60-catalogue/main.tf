@@ -61,7 +61,7 @@ resource "aws_ami_from_instance" "catalogue" {
   )
 }
 
-# creating target group, so that once the auto scaling group create the instance it will deploy those instances in a,particular target group
+# creating target group, so that once the auto scaling group create the instance ALB will deploy those instances in a,particular target group
 resource "aws_lb_target_group" "catalogue" {
   name     = "${local.common_name_suffix}-catalogue"
   port     = 8080
