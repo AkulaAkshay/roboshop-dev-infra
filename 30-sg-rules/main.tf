@@ -159,15 +159,6 @@ resource "aws_security_group_rule" "user_backend_alb" {
     to_port           = 8080
 }
 
-#user accepting connection from backend alb
-resource "aws_security_group_rule" "user_backend_alb" {
-    type              = "ingress"
-    security_group_id = local.user_sg_id
-    source_security_group_id = local.backend_alb_sg_id
-    from_port         = 8080
-    protocol          = "tcp"
-    to_port           = 8080
-}
 
 #cart accepting connection from backend alb
 resource "aws_security_group_rule" "cart_backend_alb" {
